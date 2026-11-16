@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zevisvei.github.io/shira-svei-interior-design/sitemap.xml

@@ -1,10 +1,32 @@
 import os
 SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'site')
 
+# Fill these in, then run `python3 build.py`. Empty values leave the tag out.
+SITE_URL = 'https://zevisvei.github.io/shira-svei-interior-design'  # live address, e.g. 'https://www.example.com' (no trailing slash)
+GA_ID = ''             # Google Analytics 4 measurement ID, e.g. 'G-XXXXXXXXXX'
+GSC_VERIFICATION = ''  # Search Console HTML-tag token: the content="..." value only
+
+PAGES = []
+
+
+def tracking_tags(path, P):
+    tags = []
+    if SITE_URL:
+        url = SITE_URL + '/' + ('' if path == 'index.html' else path)
+        tags.append(f'<link rel="canonical" href="{url}">\n<meta property="og:url" content="{url}">\n<meta property="og:image" content="{SITE_URL}/img/open-living.webp">')
+    else:
+        tags.append(f'<meta property="og:image" content="{P}img/open-living.webp">')
+    if GSC_VERIFICATION:
+        tags.append(f'<meta name="google-site-verification" content="{GSC_VERIFICATION}">')
+    if GA_ID:
+        tags.append(f'''<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>''')
+    return '\n'.join(tags)
+
 NAV = [('index.html', 'Home'), ('process.html', 'How we work'), ('work.html', 'Our work'), ('packages.html', 'Packages')]
 
 
-def head(title, desc, P, current):
+def head(title, desc, P, current, path):
     items = ''.join(
         f'<li><a href="{P}{h}"{" aria-current=\"page\"" if h == current else ""}>{t}</a></li>' for h, t in NAV)
     cta_cur = ' aria-current="page"' if current == 'contact.html' else ''
@@ -19,7 +41,7 @@ def head(title, desc, P, current):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <link rel="icon" href="{P}img/logo.png">
-<meta property="og:image" content="{P}img/open-living.webp">
+{tracking_tags(path, P)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -77,7 +99,8 @@ TALK = ('Have a plan you’d like to discuss?', 'Tell us what you’re buying fo
 
 def page(path, title, desc, current, body, cta=TALK):
     P = '../' * path.count('/')
-    html = head(title, desc, P, current) + body.replace('{P}', P) + foot(P, cta)
+    PAGES.append(path)
+    html = head(title, desc, P, current, path) + body.replace('{P}', P) + foot(P, cta)
     os.makedirs(os.path.dirname(os.path.join(SITE, path)), exist_ok=True)
     open(os.path.join(SITE, path), 'w').write(html)
 
@@ -551,3 +574,11 @@ bt = proj_hero('Two bathrooms', 'From bathroom plan to rendering',
 page('projects/bathrooms.html', 'Bathroom renderings | Shira Svei Interior Design',
      'Two bathrooms shown from plan and chosen materials to photorealistic rendering.', 'work.html', bt)
 print('ok')
+
+robots = 'User-agent: *\nAllow: /\n'
+if SITE_URL:
+    robots += f'\nSitemap: {SITE_URL}/sitemap.xml\n'
+    urls = ''.join(f'  <url><loc>{SITE_URL}/{"" if p == "index.html" else p}</loc></url>\n' for p in PAGES)
+    open(os.path.join(SITE, 'sitemap.xml'), 'w').write(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
+open(os.path.join(SITE, 'robots.txt'), 'w').write(robots)

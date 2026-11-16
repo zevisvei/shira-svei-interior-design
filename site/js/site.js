@@ -62,6 +62,7 @@ if (form) {
     ].join('\n');
     preview.textContent = body;
     preview.classList.add('show');
+    if (typeof gtag === 'function') gtag('event', 'generate_lead', { form: 'inquiry' });
     try {
       await navigator.clipboard.writeText(body);
       status.textContent = 'Inquiry copied. Paste it into an email or message to us.';
