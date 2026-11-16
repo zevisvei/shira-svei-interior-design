@@ -8,7 +8,8 @@
 <meta name="theme-color" content="#38321f">
 <meta property="og:title" content="Packages | Shira Svei Interior Design">
 <meta property="og:description" content="Design packages for new-build apartments in Israel: prospectus review, selections, furnishing and full-service support.">
-<link rel="icon" href="img/logo.png">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="canonical" href="https://zevisvei.github.io/shira-svei-interior-design/packages.html">
 <meta property="og:url" content="https://zevisvei.github.io/shira-svei-interior-design/packages.html">
 <meta property="og:image" content="https://zevisvei.github.io/shira-svei-interior-design/img/open-living.webp">
@@ -16,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -38,8 +40,8 @@
       <p class="lede">Help with one decision, or one team with you from the first floor plan to the last cushion.</p>
     </div>
     <div class="duo">
-      <img src="img/daylight-kitchen.webp" alt="Daylit kitchen with walnut drawers and a stone countertop" width="490" height="820" fetchpriority="high">
-      <img src="img/kitchen-and-lounge.webp" alt="Light kitchen and living area with an island and tall windows" width="1046" height="1286">
+      <img class="reveal" src="img/daylight-kitchen.webp" alt="Daylit kitchen with walnut drawers and a stone countertop" width="490" height="820" fetchpriority="high">
+      <img class="reveal" src="img/kitchen-and-lounge.webp" alt="Light kitchen and living area with an island and tall windows" width="1046" height="1286">
     </div>
   </div>
 </section>
@@ -73,18 +75,55 @@
     </ul>
   </div>
 </section>
+
+<section class="section">
+  <div class="wrap faq-wrap">
+    <h2>Questions buyers ask us</h2>
+    <div class="faq">
+<details><summary>When should we contact you?</summary><p>While you’re reviewing the sales plan, or after you’ve signed while the contractor can still make changes. The earlier we start, the more options are still open.</p></details>
+<details><summary>Can you help if we live in the U.S.?</summary><p>Yes. We work in English, go through the plans with you remotely, and speak with the contractor’s team in Israel on your behalf. Tile selection can be done in person or remotely.</p></details>
+<details><summary>Do you speak with the contractor for us?</summary><p>Yes. When a revised drawing arrives, a supplier has a question or the contractor needs a decision, we explain it to you in English and follow up with the team in Israel.</p></details>
+<details><summary>What can actually be changed?</summary><p>Every contractor sets its own limits and deadlines. We know where the flexibility usually is, and use it to fit as many details as possible to the way you live.</p></details>
+<details><summary>Can you work with the contractor’s kitchen supplier?</summary><p>Yes. We can work with the contractor’s supplier or an independent kitchen company, review the design with you and flag what to change.</p></details>
+<details><summary>Can you furnish the whole apartment?</summary><p>Yes. We plan and source furniture room by room, design custom cabinetry made by our local tradespeople, and style the apartment so it’s ready when you arrive.</p></details>
+<details><summary>What should we send first?</summary><p>The sales plan or latest plan you received, the developer’s list of standard finishes if you have it, any deadline for changes, and what you want to work better.</p></details>
+    </div>
+  </div>
+</section>
 </main>
 <footer class="site-foot dark">
-  <div class="wrap">
-    <span>Shira Svei Interior Design, new-build apartments in Israel</span>
-    <nav aria-label="Footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="img/logo.png" alt="Shira Svei Interior Design" width="936" height="460" loading="lazy">
+      <p>Design support in English for American buyers of new-build apartments in Israel, from the first floor plan to move-in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">Studio</h2>
       <a href="process.html">How we work</a>
-      <a href="work.html">Our work</a>
       <a href="packages.html">Packages</a>
+      <a href="work.html">Our work</a>
       <a href="contact.html">Contact</a>
     </nav>
+    <nav class="foot-col" aria-labelledby="foot-projects">
+      <h2 id="foot-projects">Projects</h2>
+      <a href="projects/jerusalem-heights.html">Jerusalem Heights</a>
+      <a href="projects/furniture-study.html">Apartment 12</a>
+      <a href="projects/apartment-layout.html">Apartment redesign</a>
+      <a href="projects/bathrooms.html">Two bathrooms</a>
+    </nav>
+    <div class="foot-col foot-start">
+      <h2>Buying off-plan?</h2>
+      <p>Tell us where you are in the process and what’s due next.</p>
+      <a class="btn btn-brass" href="contact.html">Tell us about your apartment</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 Shira Svei Interior Design</span>
+    <a href="#main">Back to top</a>
   </div>
 </footer>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/smooth.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

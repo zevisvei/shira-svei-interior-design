@@ -8,7 +8,8 @@
 <meta name="theme-color" content="#38321f">
 <meta property="og:title" content="Our work | Shira Svei Interior Design">
 <meta property="og:description" content="Apartment layouts, furniture studies and bathroom renderings for new-build apartments in Israel.">
-<link rel="icon" href="img/logo.png">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="canonical" href="https://zevisvei.github.io/shira-svei-interior-design/work.html">
 <meta property="og:url" content="https://zevisvei.github.io/shira-svei-interior-design/work.html">
 <meta property="og:image" content="https://zevisvei.github.io/shira-svei-interior-design/img/open-living.webp">
@@ -16,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -41,7 +43,7 @@
 </section>
 <section class="section">
   <div class="wrap work-grid">
-<a href="projects/jerusalem-heights.html"><div class="img"><img src="img/jh-hero.webp" alt="Open white kitchen looking across to the dining table" loading="lazy"></div><span class="kind">Jerusalem Heights, completed</span><h2>Two bedrooms become three</h2><p>The kitchen moved to the living room entrance, and the old kitchen became a bedroom.</p></a><a href="projects/furniture-study.html"><div class="img plan"><img src="img/furniture-2-scaled.webp" alt="3D cutaway with furniture drawn to scale" loading="lazy"></div><span class="kind">Apartment 12, furniture study</span><h2>A spacious living room. Or is it?</h2><p>How much usable space is left once the furniture is drawn to scale.</p></a><a href="projects/apartment-layout.html"><div class="img plan"><img src="img/apartment-revised-sm.webp" alt="Revised apartment floor plan" loading="lazy"></div><span class="kind">Apartment redesign</span><h2>A larger living area</h2><p>The original and revised plans, side by side.</p></a><a href="projects/bathrooms.html"><div class="img"><img src="img/tub-render-updated.webp" alt="Rendering of a dark stone bathroom with a white tub" loading="lazy"></div><span class="kind">Two bathrooms</span><h2>From bathroom plan to rendering</h2><p>The chosen tile, vanity and lighting, seen together in the real layout.</p></a>
+<a href="projects/jerusalem-heights.html"><div class="img"><img class="reveal" src="img/jh-hero.webp" alt="Open white kitchen looking across to the dining table" loading="lazy"></div><span class="kind">Jerusalem Heights, completed</span><h2>Two bedrooms become three</h2><p>The kitchen moved to the living room entrance, and the old kitchen became a bedroom.</p></a><a href="projects/furniture-study.html"><div class="img plan"><img class="reveal" src="img/furniture-2-scaled.webp" alt="3D cutaway with furniture drawn to scale" loading="lazy"></div><span class="kind">Apartment 12, furniture study</span><h2>A spacious living room. Or is it?</h2><p>How much usable space is left once the furniture is drawn to scale.</p></a><a href="projects/apartment-layout.html"><div class="img plan"><img class="reveal" src="img/apartment-revised-sm.webp" alt="Revised apartment floor plan" loading="lazy"></div><span class="kind">Apartment redesign</span><h2>A larger living area</h2><p>The original and revised plans, side by side.</p></a><a href="projects/bathrooms.html"><div class="img"><img class="reveal" src="img/tub-render-updated.webp" alt="Rendering of a dark stone bathroom with a white tub" loading="lazy"></div><span class="kind">Two bathrooms</span><h2>From bathroom plan to rendering</h2><p>The chosen tile, vanity and lighting, seen together in the real layout.</p></a>
   </div>
 </section>
 <section class="cta dark">
@@ -53,16 +55,38 @@
 </section>
 </main>
 <footer class="site-foot dark">
-  <div class="wrap">
-    <span>Shira Svei Interior Design, new-build apartments in Israel</span>
-    <nav aria-label="Footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="img/logo.png" alt="Shira Svei Interior Design" width="936" height="460" loading="lazy">
+      <p>Design support in English for American buyers of new-build apartments in Israel, from the first floor plan to move-in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">Studio</h2>
       <a href="process.html">How we work</a>
-      <a href="work.html">Our work</a>
       <a href="packages.html">Packages</a>
+      <a href="work.html">Our work</a>
       <a href="contact.html">Contact</a>
     </nav>
+    <nav class="foot-col" aria-labelledby="foot-projects">
+      <h2 id="foot-projects">Projects</h2>
+      <a href="projects/jerusalem-heights.html">Jerusalem Heights</a>
+      <a href="projects/furniture-study.html">Apartment 12</a>
+      <a href="projects/apartment-layout.html">Apartment redesign</a>
+      <a href="projects/bathrooms.html">Two bathrooms</a>
+    </nav>
+    <div class="foot-col foot-start">
+      <h2>Buying off-plan?</h2>
+      <p>Tell us where you are in the process and what’s due next.</p>
+      <a class="btn btn-brass" href="contact.html">Tell us about your apartment</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 Shira Svei Interior Design</span>
+    <a href="#main">Back to top</a>
   </div>
 </footer>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/smooth.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

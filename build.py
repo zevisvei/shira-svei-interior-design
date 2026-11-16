@@ -1,4 +1,5 @@
 import os
+import datetime
 SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'site')
 
 # Fill these in, then run `python3 build.py`. Empty values leave the tag out.
@@ -40,14 +41,16 @@ def head(title, desc, P, current, path):
 <meta name="theme-color" content="#38321f">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<link rel="icon" href="{P}img/logo.png">
+<link rel="icon" type="image/png" href="{P}img/favicon.png">
+<link rel="apple-touch-icon" href="{P}img/apple-touch-icon.png">
 {tracking_tags(path, P)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{P}css/site.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')</script>
 </head>
-<body>
+<body{' class="home"' if current == 'index.html' else ''}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top{' over' if current == 'index.html' else ''}">
   <div class="wrap">
@@ -65,7 +68,11 @@ def head(title, desc, P, current, path):
 
 
 def foot(P, cta=None, home=False):
-    extra_scripts = f'<script src="{P}vendor/gsap.min.js"></script>\n<script src="{P}vendor/ScrollTrigger.min.js"></script>\n<script type="module" src="{P}js/hero3d.js"></script>\n' if home else ''
+    scripts = [f'{P}vendor/gsap.min.js', f'{P}vendor/ScrollTrigger.min.js'] if home else []
+    scripts += [f'{P}vendor/lenis.min.js', f'{P}js/smooth.js', f'{P}js/site.js']
+    tags = ''.join(f'<script src="{src}"></script>\n' for src in scripts)
+    if home:
+        tags += f'<script type="module" src="{P}js/hero3d.js"></script>\n'
     band = ''
     if cta:
         h, p, btn, href = cta
@@ -79,18 +86,37 @@ def foot(P, cta=None, home=False):
 '''
     return f'''{band}</main>
 <footer class="site-foot dark">
-  <div class="wrap">
-    <span>Shira Svei Interior Design, new-build apartments in Israel</span>
-    <nav aria-label="Footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="{P}img/logo.png" alt="Shira Svei Interior Design" width="936" height="460" loading="lazy">
+      <p>Design support in English for American buyers of new-build apartments in Israel, from the first floor plan to move-in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">Studio</h2>
       <a href="{P}process.html">How we work</a>
-      <a href="{P}work.html">Our work</a>
       <a href="{P}packages.html">Packages</a>
+      <a href="{P}work.html">Our work</a>
       <a href="{P}contact.html">Contact</a>
     </nav>
+    <nav class="foot-col" aria-labelledby="foot-projects">
+      <h2 id="foot-projects">Projects</h2>
+      <a href="{P}projects/jerusalem-heights.html">Jerusalem Heights</a>
+      <a href="{P}projects/furniture-study.html">Apartment 12</a>
+      <a href="{P}projects/apartment-layout.html">Apartment redesign</a>
+      <a href="{P}projects/bathrooms.html">Two bathrooms</a>
+    </nav>
+    <div class="foot-col foot-start">
+      <h2>Buying off-plan?</h2>
+      <p>Tell us where you are in the process and what’s due next.</p>
+      <a class="btn btn-brass" href="{P}contact.html">Tell us about your apartment</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© {datetime.date.today().year} Shira Svei Interior Design</span>
+    <a href="#main">Back to top</a>
   </div>
 </footer>
-{extra_scripts}<script src="{P}js/site.js"></script>
-</body>
+{tags}</body>
 </html>
 '''
 
@@ -99,8 +125,9 @@ TALK = ('Have a plan you’d like to discuss?', 'Tell us what you’re buying fo
 
 
 def page(path, title, desc, current, body, cta=TALK):
-    P = '../' * path.count('/')
-    PAGES.append(path)
+    P = SITE_URL + '/' if path == '404.html' else '../' * path.count('/')
+    if path != '404.html':
+        PAGES.append(path)
     html = head(title, desc, P, current, path) + body.replace('{P}', P) + foot(P, cta, path == 'index.html')
     os.makedirs(os.path.dirname(os.path.join(SITE, path)), exist_ok=True)
     open(os.path.join(SITE, path), 'w').write(html)
@@ -130,7 +157,7 @@ def proj_hero(kind, h1, lede, img, alt, w, h, plan=False):
       <h1>{h1}</h1>
       <p class="lede">{lede}</p>
     </div>
-    <div class="hero-visual{' plan' if plan else ''}"><img src="{{P}}img/{img}" alt="{alt}" width="{w}" height="{h}" fetchpriority="high"></div>
+    <div class="hero-visual{' plan' if plan else ''}"><img class="reveal" src="{{P}}img/{img}" alt="{alt}" width="{w}" height="{h}" fetchpriority="high"></div>
   </div>
 </section>
 '''
@@ -260,7 +287,7 @@ process = '''<section class="page-hero dark has-photo">
       <p class="lede">We work with buyers purchasing apartments on paper from Israeli contractors. Start while you’re still reviewing a sales plan, or after you’ve signed while changes are still possible. Send us the plan and your deadlines, and we’ll go through them together in English.</p>
     </div>
     <div class="hero-photo">
-      <img src="{P}img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
+      <img class="reveal" src="{P}img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -272,12 +299,27 @@ process = '''<section class="page-hero dark has-photo">
       <p>Four points in an off-plan purchase where a decision is due. Each one closes for good once the contractor moves on.</p>
     </div>
     <ol class="rail">
-      <li><span class="n">1</span><span class="t">Before you commit</span><h3>Review the prospectus</h3><p>We check the dimensions and draw furniture to scale, so you can see how the rooms, storage and clearances work before you choose the apartment.</p></li>
-      <li><span class="n">2</span><span class="t">After you’ve chosen</span><h3>Adapt the layout</h3><p>We explore changes that fit the apartment to you, prepare the drawings and bring your requests to the contractor’s team.</p></li>
-      <li><span class="n">3</span><span class="t">When selections are due</span><h3>Choose the details</h3><p>Tiles, kitchen design, air conditioning, doors and fixtures, with views of how your choices look in your own layout.</p></li>
-      <li><span class="n">4</span><span class="t">Getting ready to move in</span><h3>Furnish and style</h3><p>We plan the furniture, source the pieces and add textiles, lighting, art and accessories, so the apartment is ready to live in.</p></li>
+      <li><span class="n">1</span><span class="t">Before you commit</span><h3>Review the prospectus</h3><p>We check the dimensions and draw furniture to scale, so you can see how the rooms, storage and clearances work before you choose the apartment.</p><p class="gets"><b>You get</b>A marked-up plan with your furniture drawn to scale, and the changes worth raising.</p></li>
+      <li><span class="n">2</span><span class="t">After you’ve chosen</span><h3>Adapt the layout</h3><p>We explore changes that fit the apartment to you, prepare the drawings and bring your requests to the contractor’s team.</p><p class="gets"><b>You get</b>Change drawings and a clear request list for the contractor’s team.</p></li>
+      <li><span class="n">3</span><span class="t">When selections are due</span><h3>Choose the details</h3><p>Tiles, kitchen design, air conditioning, doors and fixtures, with views of how your choices look in your own layout.</p><p class="gets"><b>You get</b>A selections list for tiles, sanitaryware and fixtures, with renderings of your rooms.</p></li>
+      <li><span class="n">4</span><span class="t">Getting ready to move in</span><h3>Furnish and style</h3><p>We plan the furniture, source the pieces and add textiles, lighting, art and accessories, so the apartment is ready to live in.</p><p class="gets"><b>You get</b>A furniture plan, sourcing list and custom cabinetry drawings, then a styled home.</p></li>
     </ol>
     <p class="aside-line">At every stage we explain the choices and deadlines in English, and act as your contact with the Israeli project team.</p>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Changes close in this order</h2>
+      <p>Each contractor sets its own deadlines. Send us yours and we’ll put them on one timeline, so nothing closes before you’ve decided.</p>
+    </div>
+    <ol class="closes">
+      <li><h3>Walls and room layout</h3><p>Moving or removing walls has to be agreed first, before the structure goes up.</p></li>
+      <li><h3>Plumbing and electrical points</h3><p>Sinks, outlets and switches are fixed while the walls are still open.</p></li>
+      <li><h3>Kitchen, tiles and fixtures</h3><p>Selections are due before finishing work starts.</p></li>
+      <li><h3>Furniture and styling</h3><p>Planned early, delivered after handover.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -350,8 +392,8 @@ packages = '''<section class="page-hero dark">
       <p class="lede">Help with one decision, or one team with you from the first floor plan to the last cushion.</p>
     </div>
     <div class="duo">
-      <img src="{P}img/daylight-kitchen.webp" alt="Daylit kitchen with walnut drawers and a stone countertop" width="490" height="820" fetchpriority="high">
-      <img src="{P}img/kitchen-and-lounge.webp" alt="Light kitchen and living area with an island and tall windows" width="1046" height="1286">
+      <img class="reveal" src="{P}img/daylight-kitchen.webp" alt="Daylit kitchen with walnut drawers and a stone countertop" width="490" height="820" fetchpriority="high">
+      <img class="reveal" src="{P}img/kitchen-and-lounge.webp" alt="Light kitchen and living area with an island and tall windows" width="1046" height="1286">
     </div>
   </div>
 </section>
@@ -391,6 +433,21 @@ packages = '''<section class="page-hero dark">
     </ul>
   </div>
 </section>
+
+<section class="section">
+  <div class="wrap faq-wrap">
+    <h2>Questions buyers ask us</h2>
+    <div class="faq">
+<details><summary>When should we contact you?</summary><p>While you’re reviewing the sales plan, or after you’ve signed while the contractor can still make changes. The earlier we start, the more options are still open.</p></details>
+<details><summary>Can you help if we live in the U.S.?</summary><p>Yes. We work in English, go through the plans with you remotely, and speak with the contractor’s team in Israel on your behalf. Tile selection can be done in person or remotely.</p></details>
+<details><summary>Do you speak with the contractor for us?</summary><p>Yes. When a revised drawing arrives, a supplier has a question or the contractor needs a decision, we explain it to you in English and follow up with the team in Israel.</p></details>
+<details><summary>What can actually be changed?</summary><p>Every contractor sets its own limits and deadlines. We know where the flexibility usually is, and use it to fit as many details as possible to the way you live.</p></details>
+<details><summary>Can you work with the contractor’s kitchen supplier?</summary><p>Yes. We can work with the contractor’s supplier or an independent kitchen company, review the design with you and flag what to change.</p></details>
+<details><summary>Can you furnish the whole apartment?</summary><p>Yes. We plan and source furniture room by room, design custom cabinetry made by our local tradespeople, and style the apartment so it’s ready when you arrive.</p></details>
+<details><summary>What should we send first?</summary><p>The sales plan or latest plan you received, the developer’s list of standard finishes if you have it, any deadline for changes, and what you want to work better.</p></details>
+    </div>
+  </div>
+</section>
 '''
 page('packages.html', 'Packages | Shira Svei Interior Design',
      'Design packages for new-build apartments in Israel: prospectus review, selections, furnishing and full-service support.',
@@ -404,7 +461,7 @@ contact = '''<div class="contact-grid">
       <p class="lede">Buying on paper from an Israeli contractor? Reach out while you’re reviewing the sales plan, or after you’ve signed while changes are still possible.</p>
       <p>Tell us what you’re buying for, what you need room for, and when your next decisions are due.</p>
     </div>
-    <img src="{P}img/evening-kitchen.webp" alt="Open kitchen with dark pendant lights behind a gray sofa" width="800" height="1208">
+    <img class="reveal" src="{P}img/evening-kitchen.webp" alt="Open kitchen with dark pendant lights behind a gray sofa" width="800" height="1208">
   </section>
   <section class="contact-form" aria-labelledby="form-title">
     <h2 id="form-title">Your apartment inquiry</h2>
@@ -423,14 +480,30 @@ contact = '''<div class="contact-grid">
         <label for="stage">Where you are now</label>
         <select id="stage" name="stage"><option value="">Not sure yet</option><option>Reviewing the contractor’s sales plan</option><option>Signed, planning changes before construction</option><option>Choosing changes or finishes</option><option>Something else</option></select>
       </div>
+      <div class="field">
+        <label for="home">Where you live now</label>
+        <select id="home" name="home"><option value="">Choose one</option><option>United States</option><option>Israel</option><option>Somewhere else</option></select>
+      </div>
+      <div class="field">
+        <label for="tz">Best time zone for a call</label>
+        <select id="tz" name="tz"><option value="">Any</option><option>U.S. Eastern</option><option>U.S. Central</option><option>U.S. Mountain</option><option>U.S. Pacific</option><option>Israel</option><option>Other</option></select>
+      </div>
+      <div class="field">
+        <label for="city">City or development</label>
+        <input id="city" name="city" autocomplete="off" placeholder="e.g. Jerusalem, Beit Shemesh">
+      </div>
+      <div class="field">
+        <label for="handover">Expected handover</label>
+        <input id="handover" name="handover" autocomplete="off" placeholder="e.g. Spring 2027">
+      </div>
       <div class="field full">
         <label for="package">Package</label>
         <select id="package" name="package"><option value="">Not sure yet</option><option value="plan-review">Prospectus review</option><option value="selections">Tiles, bathrooms and kitchen</option><option value="furnishing">Furnishing and styling</option><option value="ongoing-support">Full-service support</option></select>
       </div>
       <div class="field full">
         <label for="details">The project and upcoming decisions</label>
-        <p class="hint" id="details-hint">The city, the contractor, the size of the apartment and any deadlines you’ve been given.</p>
-        <textarea id="details" name="details" required aria-describedby="details-err" data-error="Tell us a little about the apartment and what’s coming up."></textarea>
+        <p class="hint" id="details-hint">The contractor, the size of the apartment, any deadlines you’ve been given, and what you want to work better.</p>
+        <textarea id="details" name="details" required aria-describedby="details-err details-hint" data-error="Tell us a little about the apartment and what’s coming up."></textarea>
         <p class="err" id="details-err"></p>
       </div>
       <div class="form-actions">
@@ -448,7 +521,7 @@ page('contact.html', 'Contact | Shira Svei Interior Design',
 
 # ---------------- WORK ----------------
 def card(href, img, alt, kind, h, p, plan=False):
-    return f'''<a href="{{P}}{href}"><div class="img{' plan' if plan else ''}"><img src="{{P}}img/{img}" alt="{alt}" loading="lazy"></div><span class="kind">{kind}</span><h2>{h}</h2><p>{p}</p></a>'''
+    return f'''<a href="{{P}}{href}"><div class="img{' plan' if plan else ''}"><img class="reveal" src="{{P}}img/{img}" alt="{alt}" loading="lazy"></div><span class="kind">{kind}</span><h2>{h}</h2><p>{p}</p></a>'''
 
 work = '''<section class="page-hero dark">
   <div class="wrap">
@@ -579,6 +652,22 @@ bt = proj_hero('Two bathrooms', 'From bathroom plan to rendering',
 page('projects/bathrooms.html', 'Bathroom renderings | Shira Svei Interior Design',
      'Two bathrooms shown from plan and chosen materials to photorealistic rendering.', 'work.html', bt)
 print('ok')
+
+page('404.html', 'Page not found | Shira Svei Interior Design',
+     'This page doesn’t exist. Find our work, packages and contact details here.', '',
+     '''<section class="page-hero dark">
+  <div class="wrap">
+    <div class="copy enter">
+      <h1>This page isn’t here</h1>
+      <p class="lede">The address may have changed. Start from the home page, or go straight to what you came for.</p>
+      <div class="actions" style="margin-top:32px">
+        <a class="btn btn-brass" href="{P}index.html">Go to the home page</a>
+        <a class="link" href="{P}work.html">See our work</a>
+      </div>
+    </div>
+  </div>
+</section>
+''', None)
 
 robots = 'User-agent: *\nAllow: /\n'
 if SITE_URL:

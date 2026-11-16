@@ -8,7 +8,8 @@
 <meta name="theme-color" content="#38321f">
 <meta property="og:title" content="How we work | Shira Svei Interior Design">
 <meta property="og:description" content="How we support buyers of new-build apartments in Israel, from the prospectus to move-in.">
-<link rel="icon" href="img/logo.png">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="canonical" href="https://zevisvei.github.io/shira-svei-interior-design/process.html">
 <meta property="og:url" content="https://zevisvei.github.io/shira-svei-interior-design/process.html">
 <meta property="og:image" content="https://zevisvei.github.io/shira-svei-interior-design/img/open-living.webp">
@@ -16,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -38,7 +40,7 @@
       <p class="lede">We work with buyers purchasing apartments on paper from Israeli contractors. Start while you’re still reviewing a sales plan, or after you’ve signed while changes are still possible. Send us the plan and your deadlines, and we’ll go through them together in English.</p>
     </div>
     <div class="hero-photo">
-      <img src="img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
+      <img class="reveal" src="img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -50,12 +52,27 @@
       <p>Four points in an off-plan purchase where a decision is due. Each one closes for good once the contractor moves on.</p>
     </div>
     <ol class="rail">
-      <li><span class="n">1</span><span class="t">Before you commit</span><h3>Review the prospectus</h3><p>We check the dimensions and draw furniture to scale, so you can see how the rooms, storage and clearances work before you choose the apartment.</p></li>
-      <li><span class="n">2</span><span class="t">After you’ve chosen</span><h3>Adapt the layout</h3><p>We explore changes that fit the apartment to you, prepare the drawings and bring your requests to the contractor’s team.</p></li>
-      <li><span class="n">3</span><span class="t">When selections are due</span><h3>Choose the details</h3><p>Tiles, kitchen design, air conditioning, doors and fixtures, with views of how your choices look in your own layout.</p></li>
-      <li><span class="n">4</span><span class="t">Getting ready to move in</span><h3>Furnish and style</h3><p>We plan the furniture, source the pieces and add textiles, lighting, art and accessories, so the apartment is ready to live in.</p></li>
+      <li><span class="n">1</span><span class="t">Before you commit</span><h3>Review the prospectus</h3><p>We check the dimensions and draw furniture to scale, so you can see how the rooms, storage and clearances work before you choose the apartment.</p><p class="gets"><b>You get</b>A marked-up plan with your furniture drawn to scale, and the changes worth raising.</p></li>
+      <li><span class="n">2</span><span class="t">After you’ve chosen</span><h3>Adapt the layout</h3><p>We explore changes that fit the apartment to you, prepare the drawings and bring your requests to the contractor’s team.</p><p class="gets"><b>You get</b>Change drawings and a clear request list for the contractor’s team.</p></li>
+      <li><span class="n">3</span><span class="t">When selections are due</span><h3>Choose the details</h3><p>Tiles, kitchen design, air conditioning, doors and fixtures, with views of how your choices look in your own layout.</p><p class="gets"><b>You get</b>A selections list for tiles, sanitaryware and fixtures, with renderings of your rooms.</p></li>
+      <li><span class="n">4</span><span class="t">Getting ready to move in</span><h3>Furnish and style</h3><p>We plan the furniture, source the pieces and add textiles, lighting, art and accessories, so the apartment is ready to live in.</p><p class="gets"><b>You get</b>A furniture plan, sourcing list and custom cabinetry drawings, then a styled home.</p></li>
     </ol>
     <p class="aside-line">At every stage we explain the choices and deadlines in English, and act as your contact with the Israeli project team.</p>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Changes close in this order</h2>
+      <p>Each contractor sets its own deadlines. Send us yours and we’ll put them on one timeline, so nothing closes before you’ve decided.</p>
+    </div>
+    <ol class="closes">
+      <li><h3>Walls and room layout</h3><p>Moving or removing walls has to be agreed first, before the structure goes up.</p></li>
+      <li><h3>Plumbing and electrical points</h3><p>Sinks, outlets and switches are fixed while the walls are still open.</p></li>
+      <li><h3>Kitchen, tiles and fixtures</h3><p>Selections are due before finishing work starts.</p></li>
+      <li><h3>Furniture and styling</h3><p>Planned early, delivered after handover.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -116,16 +133,38 @@
 </section>
 </main>
 <footer class="site-foot dark">
-  <div class="wrap">
-    <span>Shira Svei Interior Design, new-build apartments in Israel</span>
-    <nav aria-label="Footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="img/logo.png" alt="Shira Svei Interior Design" width="936" height="460" loading="lazy">
+      <p>Design support in English for American buyers of new-build apartments in Israel, from the first floor plan to move-in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">Studio</h2>
       <a href="process.html">How we work</a>
-      <a href="work.html">Our work</a>
       <a href="packages.html">Packages</a>
+      <a href="work.html">Our work</a>
       <a href="contact.html">Contact</a>
     </nav>
+    <nav class="foot-col" aria-labelledby="foot-projects">
+      <h2 id="foot-projects">Projects</h2>
+      <a href="projects/jerusalem-heights.html">Jerusalem Heights</a>
+      <a href="projects/furniture-study.html">Apartment 12</a>
+      <a href="projects/apartment-layout.html">Apartment redesign</a>
+      <a href="projects/bathrooms.html">Two bathrooms</a>
+    </nav>
+    <div class="foot-col foot-start">
+      <h2>Buying off-plan?</h2>
+      <p>Tell us where you are in the process and what’s due next.</p>
+      <a class="btn btn-brass" href="contact.html">Tell us about your apartment</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 Shira Svei Interior Design</span>
+    <a href="#main">Back to top</a>
   </div>
 </footer>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/smooth.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

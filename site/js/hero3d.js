@@ -71,6 +71,7 @@ async function start() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x38321f);
@@ -100,7 +101,11 @@ async function start() {
     return { x, z, w: len * cellW + .002, d: (r1 - r0 + 1) * cellH + .002, delay: Math.hypot(x, z) / Math.hypot(PW / 2, PH / 2) };
   });
   const m = new THREE.Matrix4(), pos = new THREE.Vector3(), quat = new THREE.Quaternion(), scl = new THREE.Vector3();
+  let lastK = -1;
   function setWalls(k) {
+    if (Math.abs(k - lastK) < 1e-4) return;
+    lastK = k;
+    renderer.shadowMap.needsUpdate = true;
     base.forEach((b, i) => {
       const h = Math.max(.0005, WALL * ease(clamp01((k - b.delay * .45) / .55)));
       pos.set(b.x, h / 2, b.z); scl.set(b.w, h, b.d);
@@ -113,7 +118,7 @@ async function start() {
   const sun = new THREE.DirectionalLight(0xfff3e2, 1.9);
   sun.position.set(-7, 12, 5);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(1536, 1536);
   Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 40 });
   sun.shadow.bias = -.0004;
   sun.shadow.radius = 4;
@@ -138,28 +143,40 @@ async function start() {
     draw();
   }
 
-  const state = { p: 0, px: 0, py: 0, tx: 0, ty: 0 };
+  const state = { p: 0, goal: 0, px: 0, py: 0, tx: 0, ty: 0 };
   const steps = section.querySelectorAll('.hero3d-steps li');
+  const photo = section.querySelector('.hero3d-photo');
+  const smooth = t => t * t * (3 - 2 * t);
 
   function draw() {
     const p = state.p;
-    setWalls(span(p, .06, .62));
-    const c = ease(span(p, .04, .7));
-    sph.set(fitR * (1 - .2 * c), THREE.MathUtils.degToRad(.5 + 52 * c + state.py * 3 * c), THREE.MathUtils.degToRad(-38 * c + state.px * 6 * c));
+    setWalls(span(p, .06, .6));
+    const c = ease(span(p, .04, .66));
+    const dive = smooth(span(p, .7, 1));
+    sph.set(
+      fitR * (1 - .2 * c - .38 * dive),
+      THREE.MathUtils.degToRad(.5 + 52 * c + 16 * dive + state.py * 3 * c),
+      THREE.MathUtils.degToRad(-38 * c - 14 * dive + state.px * 6 * c)
+    );
     camera.position.setFromSpherical(sph).add(target);
     camera.lookAt(target);
     renderer.render(scene, camera);
-    section.style.setProperty('--reveal', (ease(span(p, .78, .97)) * 150).toFixed(2) + '%');
-    const active = p < .3 ? 0 : p < .76 ? 1 : 2;
+    const show = smooth(span(p, .74, .96));
+    photo.style.opacity = show.toFixed(3);
+    photo.style.transform = `scale(${(1.12 - .12 * show).toFixed(4)})`;
+    const active = p < .3 ? 0 : p < .74 ? 1 : 2;
     steps.forEach((li, i) => li.classList.toggle('on', i === active));
   }
 
   let raf = 0;
   function tick() {
+    state.p += (state.goal - state.p) * .14;
     state.px += (state.tx - state.px) * .08;
     state.py += (state.ty - state.py) * .08;
+    if (Math.abs(state.goal - state.p) < .0002) state.p = state.goal;
     draw();
-    raf = Math.abs(state.tx - state.px) + Math.abs(state.ty - state.py) > .001 ? requestAnimationFrame(tick) : 0;
+    const moving = state.p !== state.goal || Math.abs(state.tx - state.px) + Math.abs(state.ty - state.py) > .001;
+    raf = moving ? requestAnimationFrame(tick) : 0;
   }
   const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
 
@@ -172,21 +189,11 @@ async function start() {
   }
 
   ScrollTrigger.create({
-    trigger: section, start: 'top top', end: 'bottom bottom', scrub: .6,
-    onUpdate: self => { state.p = self.progress; kick(); }
+    trigger: section, start: 'top top', end: 'bottom bottom',
+    onUpdate: self => { state.goal = self.progress; kick(); }
   });
 
   canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); section.classList.remove('is-3d'); ScrollTrigger.refresh(); });
   new ResizeObserver(resize).observe(canvas);
   resize();
-}
-
-// Photographs unveil once as they enter the viewport.
-if (!reduce && window.gsap && window.ScrollTrigger) {
-  gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, {
-      clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', once: true }
-    });
-  });
 }

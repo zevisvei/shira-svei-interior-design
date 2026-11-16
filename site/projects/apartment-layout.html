@@ -8,7 +8,8 @@
 <meta name="theme-color" content="#38321f">
 <meta property="og:title" content="Apartment redesign | Shira Svei Interior Design">
 <meta property="og:description" content="Original and revised plans of a new-build apartment with a larger living area.">
-<link rel="icon" href="../img/logo.png">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <link rel="canonical" href="https://zevisvei.github.io/shira-svei-interior-design/projects/apartment-layout.html">
 <meta property="og:url" content="https://zevisvei.github.io/shira-svei-interior-design/projects/apartment-layout.html">
 <meta property="og:image" content="https://zevisvei.github.io/shira-svei-interior-design/img/open-living.webp">
@@ -16,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/site.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -38,7 +40,7 @@
       <h1>A larger living area</h1>
       <p class="lede">The revised plan opens the bedroom next to the living room into one larger shared space. It also reworks the walls and doorways around the main bedroom and its bathroom.</p>
     </div>
-    <div class="hero-visual plan"><img src="../img/apartment-revised-sm.webp" alt="Revised apartment floor plan" width="1000" height="749" fetchpriority="high"></div>
+    <div class="hero-visual plan"><img class="reveal" src="../img/apartment-revised-sm.webp" alt="Revised apartment floor plan" width="1000" height="749" fetchpriority="high"></div>
   </div>
 </section>
 
@@ -63,16 +65,38 @@
 </section>
 </main>
 <footer class="site-foot dark">
-  <div class="wrap">
-    <span>Shira Svei Interior Design, new-build apartments in Israel</span>
-    <nav aria-label="Footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="../img/logo.png" alt="Shira Svei Interior Design" width="936" height="460" loading="lazy">
+      <p>Design support in English for American buyers of new-build apartments in Israel, from the first floor plan to move-in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">Studio</h2>
       <a href="../process.html">How we work</a>
-      <a href="../work.html">Our work</a>
       <a href="../packages.html">Packages</a>
+      <a href="../work.html">Our work</a>
       <a href="../contact.html">Contact</a>
     </nav>
+    <nav class="foot-col" aria-labelledby="foot-projects">
+      <h2 id="foot-projects">Projects</h2>
+      <a href="../projects/jerusalem-heights.html">Jerusalem Heights</a>
+      <a href="../projects/furniture-study.html">Apartment 12</a>
+      <a href="../projects/apartment-layout.html">Apartment redesign</a>
+      <a href="../projects/bathrooms.html">Two bathrooms</a>
+    </nav>
+    <div class="foot-col foot-start">
+      <h2>Buying off-plan?</h2>
+      <p>Tell us where you are in the process and what’s due next.</p>
+      <a class="btn btn-brass" href="../contact.html">Tell us about your apartment</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 Shira Svei Interior Design</span>
+    <a href="#main">Back to top</a>
   </div>
 </footer>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../js/smooth.js"></script>
 <script src="../js/site.js"></script>
 </body>
 </html>
