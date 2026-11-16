@@ -201,10 +201,10 @@ dialog.lightbox[open]{animation:rise .3s cubic-bezier(.2,.7,.2,1)}
 .hero3d.is-3d{height:260svh}
 .hero3d.is-3d .hero3d-stage{position:sticky;top:0;height:100svh;min-height:0}
 .hero3d.is-3d .hero3d-canvas{display:block}
-.hero3d.is-3d .hero3d-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(56,50,31,.92) 0%,rgba(56,50,31,.7) 34%,rgba(56,50,31,0) 52%)}
+.hero3d.is-3d .hero3d-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(56,50,31,.94) 0%,rgba(56,50,31,.82) 40%,rgba(56,50,31,0) 60%)}
 .hero3d.is-3d .hero3d-photo{opacity:0;transform:scale(1.12);will-change:opacity,transform;z-index:0}
 .hero3d.is-3d .hero3d-photo::after{background:linear-gradient(90deg,rgba(28,25,15,.55) 0%,rgba(28,25,15,.2) 45%,rgba(28,25,15,0) 70%)}
-.hero3d.is-3d .hero3d-steps{display:flex;position:absolute;z-index:2;right:var(--gutter);bottom:clamp(56px,8vw,112px);list-style:none;margin:0;padding:0;gap:22px;font-size:14px;color:var(--on-dark-muted)}
+.hero3d.is-3d .hero3d-steps{display:flex;position:absolute;z-index:2;right:var(--gutter);bottom:clamp(56px,8vw,112px);list-style:none;margin:0;padding:16px 20px 14px;gap:22px;font-size:14px;color:#d9d2bd;background:rgba(40,36,22,.86);border-radius:4px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .hero3d-steps li{padding-top:10px;background:linear-gradient(var(--olive-line),var(--olive-line)) 0 0/100% 1px no-repeat;min-width:120px;transition:color .3s,background-color .3s}
 .hero3d-steps li.on{color:var(--paper);background-image:linear-gradient(var(--brass),var(--brass))}
 @media (max-width:760px){
