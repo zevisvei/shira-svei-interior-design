@@ -64,7 +64,8 @@ def head(title, desc, P, current, path):
 '''
 
 
-def foot(P, cta=None):
+def foot(P, cta=None, home=False):
+    extra_scripts = f'<script src="{P}vendor/gsap.min.js"></script>\n<script src="{P}vendor/ScrollTrigger.min.js"></script>\n<script type="module" src="{P}js/hero3d.js"></script>\n' if home else ''
     band = ''
     if cta:
         h, p, btn, href = cta
@@ -88,7 +89,7 @@ def foot(P, cta=None):
     </nav>
   </div>
 </footer>
-<script src="{P}js/site.js"></script>
+{extra_scripts}<script src="{P}js/site.js"></script>
 </body>
 </html>
 '''
@@ -100,7 +101,7 @@ TALK = ('Have a plan you’d like to discuss?', 'Tell us what you’re buying fo
 def page(path, title, desc, current, body, cta=TALK):
     P = '../' * path.count('/')
     PAGES.append(path)
-    html = head(title, desc, P, current, path) + body.replace('{P}', P) + foot(P, cta)
+    html = head(title, desc, P, current, path) + body.replace('{P}', P) + foot(P, cta, path == 'index.html')
     os.makedirs(os.path.dirname(os.path.join(SITE, path)), exist_ok=True)
     open(os.path.join(SITE, path), 'w').write(html)
 
@@ -135,9 +136,12 @@ def proj_hero(kind, h1, lede, img, alt, w, h, plan=False):
 '''
 
 # ---------------- HOME ----------------
-home = '''<section class="home-hero">
-  <img class="bg" src="{P}img/open-living.webp" alt="Living room opening onto a dining area and wood kitchen" width="1250" height="1284" fetchpriority="high">
-  <div class="wrap">
+home = '''<section class="hero3d">
+  <div class="hero3d-stage">
+    <canvas class="hero3d-canvas" data-plan="{P}img/furniture-1-sales.webp" aria-hidden="true"></canvas>
+    <div class="hero3d-photo"><img src="{P}img/open-living.webp" alt="Living room opening onto a dining area and wood kitchen" width="1250" height="1284" fetchpriority="high"></div>
+    <ol class="hero3d-steps" aria-hidden="true"><li>Sales plan</li><li>True scale</li><li>Your home</li></ol>
+    <div class="wrap hero3d-wrap">
     <div class="copy enter">
       <h1>Your new&#8209;build apartment in Israel, handled from plan to move&#8209;in.</h1>
       <p class="lede">For American buyers who can’t be on site every week. We review the plans with you in English, speak with the contractor for you, and get the apartment ready to live in.</p>
@@ -145,6 +149,7 @@ home = '''<section class="home-hero">
         <a class="btn btn-brass" href="{P}contact.html">Tell us about your apartment</a>
         <a class="link" href="#stages">See how we work</a>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -206,8 +211,8 @@ home = '''<section class="home-hero">
         <a class="link" href="{P}projects/bathrooms.html">See two bathrooms from plan to rendering</a>
       </div>
       <div class="stage-media photo-pair">
-        <img src="{P}img/island.webp" alt="Stone kitchen island with wood cabinetry and slim pendant lights" width="602" height="774" loading="lazy">
-        <img src="{P}img/backsplash.webp" alt="Wood kitchen cabinetry and a lit stone backsplash" width="834" height="1152" loading="lazy">
+        <img class="reveal" src="{P}img/island.webp" alt="Stone kitchen island with wood cabinetry and slim pendant lights" width="602" height="774" loading="lazy">
+        <img class="reveal" src="{P}img/backsplash.webp" alt="Wood kitchen cabinetry and a lit stone backsplash" width="834" height="1152" loading="lazy">
       </div>
     </article>
 
@@ -221,13 +226,13 @@ home = '''<section class="home-hero">
         <a class="link" href="{P}packages.html#furnishing">Furnishing and styling</a>
       </div>
       <div class="stage-media wide-stack">
-        <img src="{P}img/primary-bedroom-walnut.webp" alt="Bedroom rendering with walnut built-ins, a recessed bookshelf and floral pillows" width="1754" height="897" loading="lazy">
+        <img class="reveal" src="{P}img/primary-bedroom-walnut.webp" alt="Bedroom rendering with walnut built-ins, a recessed bookshelf and floral pillows" width="1754" height="897" loading="lazy">
       </div>
     </article>
   </div>
 </section>
 
-<div class="band"><img src="{P}img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
+<div class="band"><img class="reveal" src="{P}img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
 
 <section class="section stone film">
   <div class="wrap split">

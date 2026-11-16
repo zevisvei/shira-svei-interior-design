@@ -31,9 +31,12 @@
   </div>
 </header>
 <main id="main">
-<section class="home-hero">
-  <img class="bg" src="img/open-living.webp" alt="Living room opening onto a dining area and wood kitchen" width="1250" height="1284" fetchpriority="high">
-  <div class="wrap">
+<section class="hero3d">
+  <div class="hero3d-stage">
+    <canvas class="hero3d-canvas" data-plan="img/furniture-1-sales.webp" aria-hidden="true"></canvas>
+    <div class="hero3d-photo"><img src="img/open-living.webp" alt="Living room opening onto a dining area and wood kitchen" width="1250" height="1284" fetchpriority="high"></div>
+    <ol class="hero3d-steps" aria-hidden="true"><li>Sales plan</li><li>True scale</li><li>Your home</li></ol>
+    <div class="wrap hero3d-wrap">
     <div class="copy enter">
       <h1>Your new&#8209;build apartment in Israel, handled from plan to move&#8209;in.</h1>
       <p class="lede">For American buyers who can’t be on site every week. We review the plans with you in English, speak with the contractor for you, and get the apartment ready to live in.</p>
@@ -41,6 +44,7 @@
         <a class="btn btn-brass" href="contact.html">Tell us about your apartment</a>
         <a class="link" href="#stages">See how we work</a>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -104,8 +108,8 @@
         <a class="link" href="projects/bathrooms.html">See two bathrooms from plan to rendering</a>
       </div>
       <div class="stage-media photo-pair">
-        <img src="img/island.webp" alt="Stone kitchen island with wood cabinetry and slim pendant lights" width="602" height="774" loading="lazy">
-        <img src="img/backsplash.webp" alt="Wood kitchen cabinetry and a lit stone backsplash" width="834" height="1152" loading="lazy">
+        <img class="reveal" src="img/island.webp" alt="Stone kitchen island with wood cabinetry and slim pendant lights" width="602" height="774" loading="lazy">
+        <img class="reveal" src="img/backsplash.webp" alt="Wood kitchen cabinetry and a lit stone backsplash" width="834" height="1152" loading="lazy">
       </div>
     </article>
 
@@ -119,13 +123,13 @@
         <a class="link" href="packages.html#furnishing">Furnishing and styling</a>
       </div>
       <div class="stage-media wide-stack">
-        <img src="img/primary-bedroom-walnut.webp" alt="Bedroom rendering with walnut built-ins, a recessed bookshelf and floral pillows" width="1754" height="897" loading="lazy">
+        <img class="reveal" src="img/primary-bedroom-walnut.webp" alt="Bedroom rendering with walnut built-ins, a recessed bookshelf and floral pillows" width="1754" height="897" loading="lazy">
       </div>
     </article>
   </div>
 </section>
 
-<div class="band"><img src="img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
+<div class="band"><img class="reveal" src="img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
 
 <section class="section stone film">
   <div class="wrap split">
@@ -158,6 +162,9 @@
     </nav>
   </div>
 </footer>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script type="module" src="js/hero3d.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

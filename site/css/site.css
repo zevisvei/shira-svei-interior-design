@@ -169,19 +169,36 @@ dialog.lightbox[open]{animation:rise .3s cubic-bezier(.2,.7,.2,1)}
 /* ---------- home ---------- */
 .top.over{position:absolute;left:0;right:0;top:0;background:linear-gradient(rgba(28,25,15,.6),rgba(28,25,15,0))}
 .top.over .nav ul{background:transparent}
-.home-hero{position:relative;min-height:min(100svh,960px);display:flex;align-items:flex-end;background:var(--olive);color:var(--paper);overflow:hidden}
-.home-hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;animation:settle 1.6s cubic-bezier(.2,.7,.2,1) both}
-.home-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,25,15,.8) 0%,rgba(28,25,15,.5) 42%,rgba(28,25,15,0) 72%),linear-gradient(0deg,rgba(28,25,15,.55) 0%,rgba(28,25,15,0) 45%)}
-.home-hero .wrap{position:relative;z-index:1;width:100%;padding-top:180px;padding-bottom:clamp(56px,8vw,112px)}
-.home-hero .copy{max-width:640px}
-.home-hero h1{color:var(--paper)}
-.home-hero .lede{color:#e3ddcb;font-size:clamp(17px,1.4vw,19px);margin:26px 0 34px;max-width:46ch}
-.home-hero .link{color:var(--paper)}
-@keyframes settle{from{transform:scale(1.06)}to{transform:none}}
+.hero3d{position:relative;background:var(--olive)}
+.hero3d-stage{position:relative;min-height:min(100svh,960px);display:flex;align-items:flex-end;overflow:hidden;color:var(--paper)}
+.hero3d-canvas{display:none;position:absolute;inset:0;width:100%;height:100%}
+.hero3d-photo{position:absolute;inset:0}
+.hero3d-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.hero3d-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,25,15,.8) 0%,rgba(28,25,15,.5) 42%,rgba(28,25,15,0) 72%),linear-gradient(0deg,rgba(28,25,15,.55) 0%,rgba(28,25,15,0) 45%)}
+.hero3d-wrap{position:relative;z-index:2;width:100%;padding-top:180px;padding-bottom:clamp(56px,8vw,112px)}
+.hero3d .copy{max-width:600px}
+.hero3d h1{color:var(--paper);font-size:clamp(40px,4.8vw,70px)}
+.hero3d .lede{color:#e3ddcb;font-size:clamp(17px,1.4vw,19px);margin:26px 0 34px;max-width:46ch}
+.hero3d .link{color:var(--paper)}
+.hero3d-steps{display:none}
+.hero3d.is-3d{height:330svh}
+.hero3d.is-3d .hero3d-stage{position:sticky;top:0;height:100svh;min-height:0}
+.hero3d.is-3d .hero3d-canvas{display:block}
+.hero3d.is-3d .hero3d-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(56,50,31,.92) 0%,rgba(56,50,31,.7) 34%,rgba(56,50,31,0) 52%)}
+.hero3d.is-3d .hero3d-photo{clip-path:circle(var(--reveal,0%) at 70% 52%)}
+.hero3d.is-3d .hero3d-steps{display:flex;position:absolute;z-index:2;right:var(--gutter);bottom:clamp(56px,8vw,112px);list-style:none;margin:0;padding:0;gap:22px;font-size:14px;color:var(--on-dark-muted)}
+.hero3d-steps li{padding-top:10px;background:linear-gradient(var(--olive-line),var(--olive-line)) 0 0/100% 1px no-repeat;min-width:120px;transition:color .3s,background-color .3s}
+.hero3d-steps li.on{color:var(--paper);background-image:linear-gradient(var(--brass),var(--brass))}
 @media (max-width:760px){
   .top.over .nav.open ul{background:var(--olive)}
-  .home-hero{min-height:92svh}
-  .home-hero::after{background:linear-gradient(0deg,rgba(28,25,15,.9) 0%,rgba(28,25,15,.55) 55%,rgba(28,25,15,.25) 100%)}
+  .hero3d-stage{min-height:92svh}
+  .hero3d-photo::after{background:linear-gradient(0deg,rgba(28,25,15,.9) 0%,rgba(28,25,15,.55) 55%,rgba(28,25,15,.25) 100%)}
+  .hero3d.is-3d .hero3d-stage{align-items:flex-start}
+  .hero3d.is-3d .hero3d-wrap{padding-top:112px}
+  .hero3d.is-3d .hero3d-stage::before{background:linear-gradient(180deg,rgba(56,50,31,.95) 0%,rgba(56,50,31,.85) 52%,rgba(56,50,31,0) 64%)}
+  .hero3d.is-3d .actions .link{display:none}
+  .hero3d.is-3d .hero3d-photo{clip-path:circle(var(--reveal,0%) at 50% 70%)}
+  .hero3d.is-3d .hero3d-steps{display:none}
 }
 .band{height:clamp(300px,48vw,680px);overflow:hidden}
 .band img{width:100%;height:100%;object-fit:cover}
@@ -338,4 +355,3 @@ dialog.lightbox[open]{animation:rise .3s cubic-bezier(.2,.7,.2,1)}
 .bath header{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
 .bath header p{color:var(--muted);margin:0}
 @media (max-width:760px){.bath header{grid-template-columns:1fr}}
-.home-hero h1{font-size:clamp(40px,4.8vw,70px)}
