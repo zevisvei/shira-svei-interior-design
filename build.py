@@ -124,11 +124,39 @@ def foot(P, cta=None, home=False):
 TALK = ('Have a plan you’d like to discuss?', 'Tell us what you’re buying for and which decisions are coming up.', 'Tell us about your apartment', 'contact.html')
 
 
+PROJECTS = [
+    ('jerusalem-heights', 'jh-hero.webp', 'Jerusalem Heights, completed', 'Two bedrooms become three', 'Open white kitchen looking across to the dining table'),
+    ('furniture-study', 'furniture-2-scaled.webp', 'Apartment 12, furniture study', 'A spacious living room. Or is it?', '3D cutaway with furniture drawn to scale'),
+    ('apartment-layout', 'apartment-revised-sm.webp', 'Apartment redesign', 'A larger living area', 'Revised apartment floor plan'),
+    ('bathrooms', 'tub-render-updated.webp', 'Two bathrooms', 'From bathroom plan to rendering', 'Rendering of a dark stone bathroom with a white tub'),
+]
+IMG_SLUG = {img: slug for slug, img, *_ in PROJECTS}
+PLANS = {'furniture-2-scaled.webp', 'apartment-revised-sm.webp'}
+
+
+def next_project(path):
+    slugs = [p[0] for p in PROJECTS]
+    slug = os.path.basename(path)[:-5]
+    if slug not in slugs:
+        return ''
+    nslug, img, kind, title, alt = PROJECTS[(slugs.index(slug) + 1) % len(PROJECTS)]
+    plan = ' plan' if img in PLANS else ''
+    return f'''<section class="next-proj">
+  <div class="wrap">
+    <a href="{nslug}.html">
+      <span class="next-copy"><span class="next-label">Next project</span><span class="next-title">{title}</span><span class="next-kind">{kind}</span></span>
+      <span class="next-img{plan}"><img src="../img/{img}" alt="{alt}" loading="lazy" style="view-transition-name:p-{nslug}"></span>
+    </a>
+  </div>
+</section>
+'''
+
+
 def page(path, title, desc, current, body, cta=TALK):
     P = SITE_URL + '/' if path == '404.html' else '../' * path.count('/')
     if path != '404.html':
         PAGES.append(path)
-    html = head(title, desc, P, current, path) + body.replace('{P}', P) + foot(P, cta, path == 'index.html')
+    html = head(title, desc, P, current, path) + body.replace('{P}', P) + next_project(path) + foot(P, cta, path == 'index.html')
     os.makedirs(os.path.dirname(os.path.join(SITE, path)), exist_ok=True)
     open(os.path.join(SITE, path), 'w').write(html)
 
@@ -157,7 +185,7 @@ def proj_hero(kind, h1, lede, img, alt, w, h, plan=False):
       <h1>{h1}</h1>
       <p class="lede">{lede}</p>
     </div>
-    <div class="hero-visual{' plan' if plan else ''}"><img class="reveal" src="{{P}}img/{img}" alt="{alt}" width="{w}" height="{h}" fetchpriority="high"></div>
+    <div class="hero-visual{' plan' if plan else ''}"><img src="{{P}}img/{img}" alt="{alt}" width="{w}" height="{h}" fetchpriority="high" style="view-transition-name:p-{IMG_SLUG[img]}"{'' if plan else ' data-parallax'}></div>
   </div>
 </section>
 '''
@@ -259,7 +287,7 @@ home = '''<section class="hero3d">
   </div>
 </section>
 
-<div class="band"><img class="reveal" src="{P}img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
+<div class="band"><img class="reveal" data-parallax src="{P}img/primary-bedroom-linen.webp" alt="Bedroom with linen curtains, fitted wardrobes and a reading chair" width="1756" height="895" loading="lazy"></div>
 
 <section class="section stone film">
   <div class="wrap split">
@@ -287,7 +315,7 @@ process = '''<section class="page-hero dark has-photo">
       <p class="lede">We work with buyers purchasing apartments on paper from Israeli contractors. Start while you’re still reviewing a sales plan, or after you’ve signed while changes are still possible. Send us the plan and your deadlines, and we’ll go through them together in English.</p>
     </div>
     <div class="hero-photo">
-      <img class="reveal" src="{P}img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
+      <img class="reveal" data-parallax src="{P}img/entry.webp" alt="Quiet neutral hallway with a dark wood door and recessed lighting" width="816" height="1210" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -521,7 +549,7 @@ page('contact.html', 'Contact | Shira Svei Interior Design',
 
 # ---------------- WORK ----------------
 def card(href, img, alt, kind, h, p, plan=False):
-    return f'''<a href="{{P}}{href}"><div class="img{' plan' if plan else ''}"><img class="reveal" src="{{P}}img/{img}" alt="{alt}" loading="lazy"></div><span class="kind">{kind}</span><h2>{h}</h2><p>{p}</p></a>'''
+    return f'''<a href="{{P}}{href}"><div class="img{' plan' if plan else ''}"><img class="reveal" src="{{P}}img/{img}" alt="{alt}" loading="lazy" style="view-transition-name:p-{IMG_SLUG[img]}"></div><span class="kind">{kind}</span><h2>{h}</h2><p>{p}</p></a>'''
 
 work = '''<section class="page-hero dark">
   <div class="wrap">

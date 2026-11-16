@@ -10,6 +10,59 @@ if (document.documentElement.classList.contains('js-reveal')) {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -12% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Section headings rise line by line, once.
+  const splitLines = h => {
+    const text = h.textContent.trim().replace(/\s+/g, ' ');
+    h.textContent = '';
+    const words = text.split(' ').map((w, i) => {
+      const span = document.createElement('span');
+      span.textContent = (i ? ' ' : '') + w;
+      h.append(span);
+      return span;
+    });
+    const lines = [];
+    words.forEach(w => {
+      const last = lines[lines.length - 1];
+      if (last && Math.abs(last.top - w.offsetTop) < 4) last.words.push(w.textContent);
+      else lines.push({ top: w.offsetTop, words: [w.textContent.trimStart()] });
+    });
+    h.textContent = '';
+    h.setAttribute('aria-label', text);
+    lines.forEach((l, i) => {
+      const ln = document.createElement('span'), inner = document.createElement('span');
+      ln.className = 'ln'; ln.setAttribute('aria-hidden', 'true');
+      inner.textContent = l.words.join('');
+      inner.style.transitionDelay = i * 90 + 'ms';
+      ln.append(inner); h.append(ln);
+    });
+    h.classList.add('lines');
+  };
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    document.querySelectorAll('main h2:not(.compare-card h2)').forEach(h => {
+      if (h.children.length) return;
+      splitLines(h);
+      io.observe(h);
+    });
+  });
+
+  // Large photographs drift slightly inside their frames while scrolling.
+  const drift = [...document.querySelectorAll('[data-parallax]')];
+  if (drift.length) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      drift.forEach(img => {
+        const r = img.parentElement.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > innerHeight + 100) return;
+        const t = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight / 2 + r.height / 2);
+        img.style.transform = `translate3d(0, ${(t * -6).toFixed(2)}%, 0) scale(1.12)`;
+      });
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
 }
 
 document.querySelectorAll('.compare input').forEach(input => {

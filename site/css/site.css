@@ -92,12 +92,12 @@ main{padding-top:112px}
 .page-hero .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,80px);align-items:end}
 .page-hero .lede{font-size:clamp(17px,1.4vw,19px);margin:28px 0 0;max-width:54ch}
 .page-hero.has-photo{padding-bottom:0}
-.hero-visual{align-self:end}
+.hero-visual{align-self:end;overflow:hidden}
 .hero-visual img{width:100%;aspect-ratio:4/3;object-fit:cover}
 .hero-visual.plan img{object-fit:contain;background:#fff;padding:clamp(10px,1.5vw,18px)}
 .page-hero.has-photo .wrap{align-items:stretch}
 .page-hero.has-photo .copy{padding-bottom:clamp(56px,8vw,112px)}
-.hero-photo{position:relative;min-height:380px}
+.hero-photo{position:relative;min-height:380px;overflow:hidden}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-photo::before{content:"";position:absolute;left:-18px;top:0;bottom:0;width:1px;background:var(--brass);transform-origin:top;animation:draw 1.1s .3s cubic-bezier(.6,0,.2,1) both}
 .crumb{font-size:14px;margin:0 0 28px;color:var(--on-dark-muted)}
@@ -410,3 +410,22 @@ dialog.lightbox[open]{animation:rise .3s cubic-bezier(.2,.7,.2,1)}
 .faq summary:hover{color:var(--olive-2)}
 .faq details p{color:var(--muted);margin:-6px 0 24px;max-width:60ch}
 @media (max-width:860px){.faq-wrap{grid-template-columns:1fr}}
+
+/* headings rise line by line */
+h2.lines .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+h2.lines .ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+h2.lines.in .ln>span{transform:none}
+[data-parallax]{will-change:transform}
+
+/* next project */
+.next-proj{border-top:1px solid var(--stone-line)}
+.next-proj a{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(56px,7vw,96px) 0;text-decoration:none}
+.next-label{display:block;font-size:15px;font-weight:500;color:var(--muted);margin-bottom:12px}
+.next-title{display:block;font:300 clamp(32px,3.6vw,52px)/1.08 var(--display);letter-spacing:-.015em;color:var(--ink);text-wrap:balance;background:linear-gradient(var(--brass),var(--brass)) 0 100%/0 2px no-repeat;transition:background-size .5s cubic-bezier(.16,1,.3,1)}
+.next-kind{display:block;margin-top:14px;color:var(--muted);font-size:15px}
+.next-img{display:block;overflow:hidden;aspect-ratio:16/9;background:#fff}
+.next-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.next-img.plan img{object-fit:contain;padding:14px}
+.next-proj a:hover .next-img img{transform:scale(1.03)}
+.next-proj a:hover .next-title{background-size:100% 2px}
+@media (max-width:760px){.next-proj a{grid-template-columns:1fr}}

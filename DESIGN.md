@@ -40,12 +40,13 @@ Brass is the only accent. Never add new hues. Avoid two dark sections back to ba
 - Stage timeline (home `.stage`, process `.rail`): numbers only because the four stages are a real sequence.
 - Header: fixed; shrinks to 76px and turns solid after 40px of scroll (`.top.scrolled`). On mobile the menu is a full-screen olive sheet with large Jost links.
 - Footer: logo and one-line description, Studio and Projects link columns, an inquiry button, then © and Back to top.
+- `.next-proj`: closing link on every project page to the next project (big title, 16:9 image, brass underline on hover).
 - `.closes`: dot-and-line timeline on olive for the order in which changes close. `.faq`: `<details>` list with a plus that turns into ×.
 - Buttons: `.btn-brass` on dark, `.btn-olive` on light; 52px tall, 2px radius. `.link` is the text link with a 1px underline, 44px tap height.
 
 ## Motion
 
-One entrance per page: hero copy rises (`.enter`), the brass rule draws. The homepage adds the scroll-driven 3D hero (GSAP ScrollTrigger, scrub 0.6) and a one-time clip-path unveil on photographs marked `.reveal`. The 3D scene renders only on scroll or pointer change, caps pixel ratio at 2, and adds a small pointer parallax on fine pointers. Everything else moves only in response to the user (slider, lightbox, hover zoom 1.025 on linked images). Scrolling is native (a smooth-scroll library was tried and removed: it fought wheel input). `.reveal` photographs unveil with a clip-path wipe (IntersectionObserver); pages cross-fade via the View Transitions API. All motion is off under `prefers-reduced-motion`.
+One entrance per page: hero copy rises (`.enter`), the brass rule draws. The homepage adds the scroll-driven 3D hero (GSAP ScrollTrigger, scrub 0.6) and a one-time clip-path unveil on photographs marked `.reveal`. The 3D scene renders only on scroll or pointer change, caps pixel ratio at 2, and adds a small pointer parallax on fine pointers. Everything else moves only in response to the user (slider, lightbox, hover zoom 1.025 on linked images). Scrolling is native (a smooth-scroll library was tried and removed: it fought wheel input). `.reveal` photographs unveil with a clip-path wipe (IntersectionObserver); `main h2` headings rise line by line once (`h2.lines`, split in `site.js`, `aria-label` keeps the full text); `[data-parallax]` photos drift ±6% inside their frame on scroll (no scroll-jacking); pages cross-fade via the View Transitions API, and project images share `view-transition-name: p-<slug>` so a work card morphs into the project hero. Do not reuse the class name `split`: it is the two-column layout. All motion is off under `prefers-reduced-motion`.
 
 ## Don't
 
