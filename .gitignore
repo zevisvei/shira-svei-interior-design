@@ -1,5 +1,5 @@
 .playwright-mcp/
-.claude/
-skills-lock.json
+.claude/skills/
+.claude/settings.local.json
 __pycache__/
 .taste-skill/
