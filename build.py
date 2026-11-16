@@ -69,7 +69,7 @@ def head(title, desc, P, current, path):
 
 def foot(P, cta=None, home=False):
     scripts = [f'{P}vendor/gsap.min.js', f'{P}vendor/ScrollTrigger.min.js'] if home else []
-    scripts += [f'{P}vendor/lenis.min.js', f'{P}js/smooth.js', f'{P}js/site.js']
+    scripts += [f'{P}js/site.js']
     tags = ''.join(f'<script src="{src}"></script>\n' for src in scripts)
     if home:
         tags += f'<script type="module" src="{P}js/hero3d.js"></script>\n'

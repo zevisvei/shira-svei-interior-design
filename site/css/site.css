@@ -198,7 +198,7 @@ dialog.lightbox[open]{animation:rise .3s cubic-bezier(.2,.7,.2,1)}
 .hero3d .lede{color:#e3ddcb;font-size:clamp(17px,1.4vw,19px);margin:26px 0 34px;max-width:46ch}
 .hero3d .link{color:var(--paper)}
 .hero3d-steps{display:none}
-.hero3d.is-3d{height:330svh}
+.hero3d.is-3d{height:260svh}
 .hero3d.is-3d .hero3d-stage{position:sticky;top:0;height:100svh;min-height:0}
 .hero3d.is-3d .hero3d-canvas{display:block}
 .hero3d.is-3d .hero3d-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(56,50,31,.92) 0%,rgba(56,50,31,.7) 34%,rgba(56,50,31,0) 52%)}

@@ -27,7 +27,7 @@ Brass is the only accent. Never add new hues. Avoid two dark sections back to ba
 
 - `.wrap`: max 1240px, gutter `clamp(16px, 5vw, 72px)`.
 - Sections: `.section` with `--section` vertical padding; `.section-head` puts the h2 left and a one-line intro right.
-- Homepage hero (`.hero3d`, `js/hero3d.js`): the real Apartment 12 sales plan lies on an olive ground. Scrolling through a 330svh pinned section raises its walls (detected from the drawing's dark pixels, merged into boxes, dark poché tops), tilts the camera from top-down to a 3/4 view, then opens the finished-room photo in a growing circle. Three step labels track progress (desktop only). The plan sits right of the copy on desktop and below it on mobile, with an olive scrim behind the text.
+- Homepage hero (`.hero3d`, `js/hero3d.js`): the real Apartment 12 sales plan lies on an olive ground. Scrolling through a 260svh pinned section raises its walls (detected from the drawing's dark pixels, merged into boxes, dark poché tops), tilts the camera from top-down to a 3/4 view, then opens the finished-room photo in a growing circle. Three step labels track progress (desktop only). The plan sits right of the copy on desktop and below it on mobile, with an olive scrim behind the text.
 - The static hero is the fallback: full-bleed photo with olive scrim. It shows when WebGL fails, before JS runs, and under reduced motion. The header overlays it (`.top.over`).
 - Inner pages: olive `.page-hero` with copy left and a photo or plan right (`.hero-visual`, add `.plan` for drawings on white).
 - Closing `.cta` band: olive over the evening-kitchen photo, centered heading and one brass button.
@@ -45,7 +45,7 @@ Brass is the only accent. Never add new hues. Avoid two dark sections back to ba
 
 ## Motion
 
-One entrance per page: hero copy rises (`.enter`), the brass rule draws. The homepage adds the scroll-driven 3D hero (GSAP ScrollTrigger, scrub 0.6) and a one-time clip-path unveil on photographs marked `.reveal`. The 3D scene renders only on scroll or pointer change, caps pixel ratio at 2, and adds a small pointer parallax on fine pointers. Everything else moves only in response to the user (slider, lightbox, hover zoom 1.025 on linked images). Lenis smooth scroll runs on every page; `.reveal` photographs unveil with a clip-path wipe (IntersectionObserver); pages cross-fade via the View Transitions API. All motion is off under `prefers-reduced-motion`.
+One entrance per page: hero copy rises (`.enter`), the brass rule draws. The homepage adds the scroll-driven 3D hero (GSAP ScrollTrigger, scrub 0.6) and a one-time clip-path unveil on photographs marked `.reveal`. The 3D scene renders only on scroll or pointer change, caps pixel ratio at 2, and adds a small pointer parallax on fine pointers. Everything else moves only in response to the user (slider, lightbox, hover zoom 1.025 on linked images). Scrolling is native (a smooth-scroll library was tried and removed: it fought wheel input). `.reveal` photographs unveil with a clip-path wipe (IntersectionObserver); pages cross-fade via the View Transitions API. All motion is off under `prefers-reduced-motion`.
 
 ## Don't
 

@@ -24,7 +24,7 @@ if (nav && menuBtn) {
     nav.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', open);
     menuBtn.textContent = open ? 'Close' : 'Menu';
-    window.lenis?.[open ? 'stop' : 'start']();
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   };
   menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
@@ -39,7 +39,6 @@ if (zooms.length) {
   const img = dlg.querySelector('img'), cap = dlg.querySelector('p');
   dlg.querySelector('button').addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener('close', () => window.lenis?.start());
   zooms.forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
     const inner = a.querySelector('img');
@@ -49,7 +48,6 @@ if (zooms.length) {
     cap.textContent = fc ? fc.textContent.trim() : '';
     cap.hidden = !fc;
     dlg.showModal();
-    window.lenis?.stop();
   }));
 }
 
